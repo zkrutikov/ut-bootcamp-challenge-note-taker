@@ -1,14 +1,25 @@
 {
   "name": "note-taker",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Zak Krutikov",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
-  }
+    "express": "^4.16.4",
+    "uuid": "^8.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zkrutikov/ut-bootcamp-challenge-note-taker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zkrutikov/ut-bootcamp-challenge-note-taker/issues"
+  },
+  "homepage": "https://github.com/zkrutikov/ut-bootcamp-challenge-note-taker#readme",
+  "description": ""
 }
