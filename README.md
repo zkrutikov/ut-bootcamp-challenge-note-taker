@@ -1,3 +1,3 @@
 # Note Taker Starter Code
 
-# Note Take prepared by Zak Krutikov
+# Note Taker prepared by Zak Krutikov
