@@ -14,5 +14,24 @@ router.get('/notes', (req, res)=> {
 
 
 // Define post and delete methods
+router.post('/notes', (req, res) => {
+    let note = req.body ||  {}
+    store.addNotes(note)
+    .then (() => {
+        console.log('this is res', res);
+        return res.json(note);
+    })
+})
+
+
+
+// router.delete('/notes/:id', (req, res) => {
+//     console.log(req.params.id);
+//     store.deleteNotes(req.params.id)
+//     .then (() =>{
+//         return req.json(req.params.id)
+//     })
+// })
+
 
 module.exports = router;

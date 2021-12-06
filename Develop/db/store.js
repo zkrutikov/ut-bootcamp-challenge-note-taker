@@ -7,11 +7,12 @@ const writeFileAsync = util.promisify(fs.writeFile);
 
 class Store {
     read(){
-    return readFileAsync('./db/db.json', 'utf8');
+    return readFileAsync('db/db.json', 'utf8');
     }
 
     write(note){
-    return writeFileAsync('./db/db.json', JSON.stringify(note));
+        console.log('this is', note);
+    return writeFileAsync('db/db.json', JSON.stringify(note));
     }
 
     readNotes(){
@@ -24,12 +25,14 @@ class Store {
     else {
     parsedNotes = [];
     }
+    console.log('parsed notes', parsedNotes);
     return parsedNotes;
     })
 
     }
 
     addNotes(note){
+        console.log(note);
     const {title, text} = note;
     if (!title || !text) {
         throw new Error('Title or text can not be blank!')
@@ -37,9 +40,12 @@ class Store {
     const newNote = {title, text, id: uuidv4()}
     return this.readNotes()
     .then (function(notes) {
+        console.log(notes);
         return [...notes, newNote]
     })
-    .then (function(updatedNotes){
+    .then ((updatedNotes) => {
+        console.log('addNote here', updatedNotes);
+        console.log(this.write);
         return this.write(updatedNotes);
     })
     .then (function(){
