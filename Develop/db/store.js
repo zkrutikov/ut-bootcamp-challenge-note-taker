@@ -1,69 +1,66 @@
-const e = require('express');
-const fs = require('fs');
-const util = require('util');
-const {v4: uuidv4} = require('uuid');
+const express = require("express");
+const fs = require("fs");
+const util = require("util");
+const { v4: uuidv4 } = require("uuid");
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
 class Store {
-    read(){
-    return readFileAsync('db/db.json', 'utf8');
-    }
+  read() {
+    return readFileAsync("db/db.json", "utf8");
+  }
 
-    write(note){
-        console.log('this is', note);
-    return writeFileAsync('db/db.json', JSON.stringify(note));
-    }
+  write(note) {
+    console.log("this is", note);
+    return writeFileAsync("db/db.json", JSON.stringify(note));
+  }
 
-    readNotes(){
-    return this.read()
-    .then (function(notes){
-    let parsedNotes;
-    if (notes) {
+  readNotes() {
+    return this.read().then(function (notes) {
+      let parsedNotes;
+      if (notes) {
         parsedNotes = [].concat(JSON.parse(notes));
-    }
-    else {
-    parsedNotes = [];
-    }
-    console.log('parsed notes', parsedNotes);
-    return parsedNotes;
-    })
+      } else {
+        parsedNotes = [];
+      }
+      console.log("parsed notes", parsedNotes);
+      return parsedNotes;
+    });
+  }
 
-    }
-
-    addNotes(note){
-        console.log(note);
-    const {title, text} = note;
+  addNotes(note) {
+    console.log(note);
+    const { title, text } = note;
     if (!title || !text) {
-        throw new Error('Title or text can not be blank!')
+      throw new Error("Title or text can not be blank!");
     }
-    const newNote = {title, text, id: uuidv4()}
+    const newNote = { title, text, id: uuidv4() };
     return this.readNotes()
-    .then (function(notes) {
+      .then(function (notes) {
         console.log(notes);
-        return [...notes, newNote]
-    })
-    .then ((updatedNotes) => {
-        console.log('addNote here', updatedNotes);
+        return [...notes, newNote];
+      })
+      .then((updatedNotes) => {
+        console.log("addNote here", updatedNotes);
         console.log(this.write);
         return this.write(updatedNotes);
-    })
-    .then (function(){
+      })
+      .then(function () {
         return newNote;
-    })
-    }
+      });
+  }
 
-    deleteNotes(id){
+  deleteNotes(id) {
     return this.readNotes()
-    .then (function(notes){
-    notes.filter(function(note){
-    return note.id !== id; 
-    })
-    })
-    .then (function(updatedNotes){
+      .then(function (notes) {
+        notes.filter(function (note) {
+          return note.id !== id;
+        });
+      })
+      .then(function (updatedNotes) {
         return this.write(updatedNotes);
-    })
-    }
+      });
+  }
 }
 
 module.exports = new Store();
