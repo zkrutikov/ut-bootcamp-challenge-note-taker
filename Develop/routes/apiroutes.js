@@ -23,8 +23,8 @@ router.post("/notes", (req, res) => {
 
 router.delete("/notes/:id", (req, res) => {
   console.log(req.id);
-  store.deleteNote(req.params.id).then(() => {
-    return req.json(req.params.id);
+  store.deleteNotes(req.params.id).then(() => {
+    return res.json(req.params.id);
   });
 });
 

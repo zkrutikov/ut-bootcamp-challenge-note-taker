@@ -11,12 +11,12 @@ class Store {
   }
 
   write(note) {
-    console.log("this is", note);
+    console.log(note);
     return writeFileAsync("db/db.json", JSON.stringify(note));
   }
 
   readNotes() {
-    return this.read().then(function (notes) {
+    return this.read().then((notes) => {
       let parsedNotes;
       if (notes) {
         parsedNotes = [].concat(JSON.parse(notes));
@@ -36,7 +36,7 @@ class Store {
     }
     const newNote = { title, text, id: uuidv4() };
     return this.readNotes()
-      .then(function (notes) {
+      .then((notes) => {
         console.log(notes);
         return [...notes, newNote];
       })
@@ -45,20 +45,23 @@ class Store {
         console.log(this.write);
         return this.write(updatedNotes);
       })
-      .then(function () {
+      .then(() => {
         return newNote;
       });
   }
 
   deleteNotes(id) {
+    console.log('inside delete')
     return this.readNotes()
-      .then(function (notes) {
-        notes.filter(function (note) {
-          return note.id !== id;
+      .then((notes) => {
+        notes.filter((note) => {
+          //return 
+          note.id !== id;
         });
       })
-      .then(function (updatedNotes) {
-        return this.write(updatedNotes);
+      .then((filteredNotes) => {
+      //return 
+      this.write(filteredNotes);
       });
   }
 }
