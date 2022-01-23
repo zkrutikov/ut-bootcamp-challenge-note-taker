@@ -1,3 +1,14 @@
-# Note Taker Starter Code
+# TechBlog
 
-# Note Taker prepared by Zak Krutikov
+## Description 
+
+UT bootcamp challenge #11 Note-Taker submission
+
+## Technologies
+
+* Javascript
+* Node.js
+* Express.js
+
+## Licenses
+MIT
