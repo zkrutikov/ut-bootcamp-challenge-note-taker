@@ -51,18 +51,9 @@ class Store {
   }
 
   deleteNotes(id) {
-    console.log('inside delete')
     return this.readNotes()
-      .then((notes) => {
-        notes.filter((note) => {
-          //return 
-          note.id !== id;
-        });
-      })
-      .then((filteredNotes) => {
-      //return 
-      this.write(filteredNotes);
-      });
+      .then((notes) => notes.filter((note) => note.id !== id))
+      .then ((filteredNotes) => this.write(filteredNotes))
   }
 }
 
